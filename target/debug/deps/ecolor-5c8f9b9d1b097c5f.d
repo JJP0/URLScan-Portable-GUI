@@ -1,0 +1,11 @@
+C:\Users\John\Desktop\github\urlscan-portable-window\target\debug\deps\libecolor-5c8f9b9d1b097c5f.rmeta: C:\Users\John\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ecolor-0.21.0\src\lib.rs C:\Users\John\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ecolor-0.21.0\src\color32.rs C:\Users\John\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ecolor-0.21.0\src\hsva_gamma.rs C:\Users\John\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ecolor-0.21.0\src\hsva.rs C:\Users\John\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ecolor-0.21.0\src\rgba.rs
+
+C:\Users\John\Desktop\github\urlscan-portable-window\target\debug\deps\libecolor-5c8f9b9d1b097c5f.rlib: C:\Users\John\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ecolor-0.21.0\src\lib.rs C:\Users\John\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ecolor-0.21.0\src\color32.rs C:\Users\John\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ecolor-0.21.0\src\hsva_gamma.rs C:\Users\John\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ecolor-0.21.0\src\hsva.rs C:\Users\John\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ecolor-0.21.0\src\rgba.rs
+
+C:\Users\John\Desktop\github\urlscan-portable-window\target\debug\deps\ecolor-5c8f9b9d1b097c5f.d: C:\Users\John\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ecolor-0.21.0\src\lib.rs C:\Users\John\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ecolor-0.21.0\src\color32.rs C:\Users\John\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ecolor-0.21.0\src\hsva_gamma.rs C:\Users\John\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ecolor-0.21.0\src\hsva.rs C:\Users\John\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ecolor-0.21.0\src\rgba.rs
+
+C:\Users\John\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ecolor-0.21.0\src\lib.rs:
+C:\Users\John\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ecolor-0.21.0\src\color32.rs:
+C:\Users\John\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ecolor-0.21.0\src\hsva_gamma.rs:
+C:\Users\John\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ecolor-0.21.0\src\hsva.rs:
+C:\Users\John\.cargo\registry\src\index.crates.io-6f17d22bba15001f\ecolor-0.21.0\src\rgba.rs:

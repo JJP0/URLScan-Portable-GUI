@@ -1,0 +1,10 @@
+C:\Users\John\Desktop\github\urlscan-portable-window\target\debug\deps\libowned_ttf_parser-62340755913506d6.rmeta: C:\Users\John\.cargo\registry\src\index.crates.io-6f17d22bba15001f\owned_ttf_parser-0.20.0\src\lib.rs C:\Users\John\.cargo\registry\src\index.crates.io-6f17d22bba15001f\owned_ttf_parser-0.20.0\src\convert.rs C:\Users\John\.cargo\registry\src\index.crates.io-6f17d22bba15001f\owned_ttf_parser-0.20.0\src\owned.rs C:\Users\John\.cargo\registry\src\index.crates.io-6f17d22bba15001f\owned_ttf_parser-0.20.0\src\preparse.rs
+
+C:\Users\John\Desktop\github\urlscan-portable-window\target\debug\deps\libowned_ttf_parser-62340755913506d6.rlib: C:\Users\John\.cargo\registry\src\index.crates.io-6f17d22bba15001f\owned_ttf_parser-0.20.0\src\lib.rs C:\Users\John\.cargo\registry\src\index.crates.io-6f17d22bba15001f\owned_ttf_parser-0.20.0\src\convert.rs C:\Users\John\.cargo\registry\src\index.crates.io-6f17d22bba15001f\owned_ttf_parser-0.20.0\src\owned.rs C:\Users\John\.cargo\registry\src\index.crates.io-6f17d22bba15001f\owned_ttf_parser-0.20.0\src\preparse.rs
+
+C:\Users\John\Desktop\github\urlscan-portable-window\target\debug\deps\owned_ttf_parser-62340755913506d6.d: C:\Users\John\.cargo\registry\src\index.crates.io-6f17d22bba15001f\owned_ttf_parser-0.20.0\src\lib.rs C:\Users\John\.cargo\registry\src\index.crates.io-6f17d22bba15001f\owned_ttf_parser-0.20.0\src\convert.rs C:\Users\John\.cargo\registry\src\index.crates.io-6f17d22bba15001f\owned_ttf_parser-0.20.0\src\owned.rs C:\Users\John\.cargo\registry\src\index.crates.io-6f17d22bba15001f\owned_ttf_parser-0.20.0\src\preparse.rs
+
+C:\Users\John\.cargo\registry\src\index.crates.io-6f17d22bba15001f\owned_ttf_parser-0.20.0\src\lib.rs:
+C:\Users\John\.cargo\registry\src\index.crates.io-6f17d22bba15001f\owned_ttf_parser-0.20.0\src\convert.rs:
+C:\Users\John\.cargo\registry\src\index.crates.io-6f17d22bba15001f\owned_ttf_parser-0.20.0\src\owned.rs:
+C:\Users\John\.cargo\registry\src\index.crates.io-6f17d22bba15001f\owned_ttf_parser-0.20.0\src\preparse.rs:
