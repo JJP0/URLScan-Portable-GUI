@@ -306,8 +306,9 @@ pub async fn scan_url(url: String, api_key: String) -> Result<()> {
 	Ok(())
 }
 
+
 #[tokio::main]
-pub async fn fetch_results() -> Result<()> {
+pub async fn fetch_results() -> std::result::Result<(), Box<dyn std::error::Error>> {
 
 	let api_key = get_api_key().expect("Failed to get API Key");
 	let uuid = get_uuid().expect("Failed to get UUID");
@@ -327,31 +328,44 @@ pub async fn fetch_results() -> Result<()> {
 	let res = client.get(url)
 		.headers(headers)
 		.send()
-		.await?
-		.text()
 		.await?;
+		// .text()
+		// .await?;
 
-	let response: Root = serde_json::from_str(&res)?;
+	let status = res.status();
+	let body = res.text().await?;
+
+	if status.is_success() {
+	        let response: Root = serde_json::from_str(&body)?;
 	
-	let ips = &response.lists.ips;
-	let countries = &response.lists.countries;
-	let urls = &response.lists.urls;
-	let overall_score = response.verdicts.overall.score;
-	let overall_malicious = response.verdicts.overall.malicious;
-	let community_score = response.verdicts.community.score;
-	let community_malicious = response.verdicts.community.malicious;
+			let ips = &response.lists.ips;
+			let countries = &response.lists.countries;
+			let urls = &response.lists.urls;
+			let overall_score = response.verdicts.overall.score;
+			let overall_malicious = response.verdicts.overall.malicious;
+			let community_score = response.verdicts.community.score;
+			let community_malicious = response.verdicts.community.malicious;
 
-	let json_data = json!({
-        "ips": ips,
-        "urls": urls,
-        "countries": countries,
-        "overall_score": overall_score,
-        "overall_malicious": overall_malicious,
-        "community_score": community_score,
-        "community_malicious": community_malicious,
-    });
+			let json_data = json!({
+		        "ips": ips,
+		        "urls": urls,
+		        "countries": countries,
+		        "overall_score": overall_score,
+		        "overall_malicious": overall_malicious,
+		        "community_score": community_score,
+		        "community_malicious": community_malicious,
+		    });
 
-	write_result_data(&json_data)?;
+		    write_result_data(&json_data)?;
+
+		    // write_result_data(&json_data)?;
+
+	    } else {
+	        println!("Received non-success status code: {}", status);
+	        return Err(format!("HTTP request failed with status code {}: {}", status, body).into());
+	        //let error_response: ErrorResponse = serde_json::from_str(&body).expect("Failed to deserialize error response");
+	       // println!("{:#?}", error_response);
+	    }
 
 	Ok(())
 }
@@ -371,7 +385,7 @@ fn write_result_data(data: &Value) -> io::Result<()> {
 }
 
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Deserialize, Default)]
 pub struct ResultsData {
     pub community_malicious: bool,
     pub community_score: i64,
@@ -384,8 +398,9 @@ pub struct ResultsData {
 
 
 pub fn load_data() -> ResultsData {
-    let json_data = read_json_file("results.json").expect("Failed to read JSON file");
-    serde_json::from_str(&json_data).expect("Failed to deserialize JSON data")
+
+    let json_data = read_json_file("results.json").unwrap_or(String::new());//.expect("Failed to read JSON file");
+    serde_json::from_str(&json_data).unwrap_or_default()
 }
 
 
@@ -394,6 +409,16 @@ fn read_json_file(file_path: &str) -> io::Result<String> {
     let mut json_data = String::new();
     file.read_to_string(&mut json_data)?;
     Ok(json_data)
+}
+
+pub fn remove_all_text_from_json_file() -> io::Result<()> {
+    // Open the file with write access, truncating its contents
+    let mut file = OpenOptions::new().write(true).truncate(true).open("results.json")?;
+
+    // Truncate the file, removing all text
+    file.set_len(0)?;
+
+    Ok(())
 }
 /*
 

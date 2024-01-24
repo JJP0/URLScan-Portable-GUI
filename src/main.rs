@@ -162,6 +162,7 @@ impl eframe::App for MyApp {
                             urls: Default::default(),
                         };
                     }
+                    functions::remove_all_text_from_json_file();
 
                     let blank = &self.url_to_scan;
                     self.current_url_name = blank.to_string();
@@ -187,7 +188,19 @@ impl eframe::App for MyApp {
                 ui.add_space(10.0);
                 ui.vertical_centered(|ui| {
                     if ui.button("Fetch results").clicked() {
-                        functions::fetch_results().expect("Failed to fetch results");
+
+                        match functions::fetch_results() {
+                            Ok(()) => {
+                                println!("Fetched results successfully");
+                                //functions::fetch_results();
+                            }
+                            Err(err) => {
+                                println!("Failed to fetch results: {}", err);
+                                ui.label("Tried to access results too soon. Hang on.");
+                            }
+                        }
+                        
+
 
                         self.results = functions::load_data();
 
