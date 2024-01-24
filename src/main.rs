@@ -69,7 +69,7 @@ impl Default for MyApp {
             remaining_public_scans: 0,
             remaining_private_scans: 0,
 
-            api_key: functions::get_api_key().expect(""),
+            api_key: functions::read_from_file("key.txt").expect(""),
 
             settings_open: false,
             url_to_scan: "".to_string(),
@@ -114,7 +114,7 @@ impl eframe::App for MyApp {
                         if ui.button("Save").clicked() {
                            // functions::create_json_file(self.api_key.to_string(), self.web_chat_path.to_string());
                             println!("Saving API Key - {}", self.api_key.to_string());
-                            functions::save_api_key(&self.api_key).expect("Failed to save API key");
+                            functions::write_to_file(&self.api_key, "key.txt").expect("Failed to save API key");
                             println!("UUID = {}", self.url_search_uuid);
                         }
                         if ui.button("Close").clicked() {
@@ -136,12 +136,12 @@ impl eframe::App for MyApp {
 
             // Check for API Key
             if self.api_key == "" {
-                if functions::get_api_key().expect("").is_empty() {
+                if functions::read_from_file("key.txt").expect("").is_empty() {
                     ui.add_space(5.0);
                     ui.colored_label(egui::Color32::RED, "API KEY MISSING - ADD API KEY TO SETTINGS");
                     ui.separator();
                 } else {
-                    self.api_key = functions::get_api_key().expect("Weird Failure")
+                    self.api_key = functions::read_from_file("key.txt").expect("Weird Failure")
                 }
                 
             }
@@ -173,7 +173,7 @@ impl eframe::App for MyApp {
 
                     functions::scan_url(self.url_to_scan.to_string(), self.api_key.to_string());//.expect("Failed to scan url"); 
 
-                    self.url_search_uuid = functions::get_uuid().expect("Couldn't retrieve UUID");
+                    self.url_search_uuid = functions::read_from_file("uuid.txt").expect("Couldn't retrieve UUID");
 
 
                     }
