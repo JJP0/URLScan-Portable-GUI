@@ -175,7 +175,7 @@ pub fn read_from_file(file_name: &str) -> io::Result<String> {
 
 /*  Func to submit url to URLScan API and retrieve the UUID created */
 #[tokio::main]
-pub async fn scan_url(url: String, api_key: String) -> Result<()> {
+pub async fn scan_url(url: String, api_key: String) -> std::result::Result<(), Box<dyn std::error::Error>> {
 
 	// Create maps for reqwest data, headers
 	//let mut data = HashMap::new();
@@ -223,8 +223,9 @@ pub async fn scan_url(url: String, api_key: String) -> Result<()> {
         }
     } else {
         println!("Received non-success status code: {}", status);
-        let error_response: ErrorResponse = serde_json::from_str(&body).expect("Failed to deserialize error response");
-        println!("{:#?}", error_response);
+        let error_response: ErrorResponse = serde_json::from_str(&body)?;//.expect("Failed to deserialize error response");
+        return Err(format!("HTTP request failed with status code {}: {}", status, body).into());
+        //println!("{:#?}", error_response);
     }
  
 	Ok(())

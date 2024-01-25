@@ -1,5 +1,5 @@
-# /target
-# API KEY
+/target
+# API KEY, RESULTS FILE, UUID
 key.txt
 results.json
 uuid.txt

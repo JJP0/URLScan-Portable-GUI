@@ -164,17 +164,25 @@ impl eframe::App for MyApp {
                     }
                     functions::remove_all_text_from_json_file();
 
-                    let blank = &self.url_to_scan;
-                    self.current_url_name = blank.to_string();
-                    // self.current_url_name = &self.url_to_scan;
-                    println!("WOOOO");
-                    println!("{} {}", self.url_to_scan.to_string(), self.api_key.to_string());
-                    self.url_search_uuid = String::new();
+                    if !self.url_to_scan.is_empty() {
 
-                    functions::scan_url(self.url_to_scan.to_string(), self.api_key.to_string());//.expect("Failed to scan url"); 
+                        match functions::scan_url(self.url_to_scan.to_string(), self.api_key.to_string()) {
+                            Ok(()) => {
+                                let blank = &self.url_to_scan;
+                                self.current_url_name = blank.to_string();
+                                println!("{} {}", self.url_to_scan.to_string(), self.api_key.to_string());
+                                self.url_search_uuid = String::new(); 
 
-                    self.url_search_uuid = functions::read_from_file("uuid.txt").expect("Couldn't retrieve UUID");
+                                self.url_search_uuid = functions::read_from_file("uuid.txt").expect("Couldn't retrieve UUID");
+                            }
+                            Err(err) => {
+                                println!("URL failed to scan. Possible issue with the API key or validity of the URL.");
+                            }
+                        }
+                        //functions::scan_url(self.url_to_scan.to_string(), self.api_key.to_string());//.expect("Failed to scan url");
 
+                        
+                    }
 
                     }
             });
