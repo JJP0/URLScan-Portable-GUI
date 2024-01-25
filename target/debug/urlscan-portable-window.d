@@ -1,1 +1,0 @@
-C:\Users\John\Desktop\github\URLScan-Portable-GUI\target\debug\urlscan-portable-window.exe: C:\Users\John\Desktop\github\URLScan-Portable-GUI\src\functions.rs C:\Users\John\Desktop\github\URLScan-Portable-GUI\src\main.rs
