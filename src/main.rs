@@ -58,6 +58,8 @@ struct MyApp {
     url_search_uuid: String,
     results: ResultsData,
     current_url_name: String,
+    search_response_success: i8,
+    fetch_results_failed: bool,
 
 }
 
@@ -84,6 +86,9 @@ impl Default for MyApp {
                 urls: Default::default(),
             },
             current_url_name: "".to_string(),
+
+            search_response_success: 0,
+            fetch_results_failed: false,
         }
     }
 }
@@ -102,6 +107,7 @@ impl eframe::App for MyApp {
                 });
             });
 
+            
             if self.settings_open {
                 egui::Window::new("API Key").show(&ctx, |ui: &mut egui::Ui| {
                     // Add content to the window here
@@ -162,6 +168,7 @@ impl eframe::App for MyApp {
                             urls: Default::default(),
                         };
                     }
+                    self.search_response_success = 0;
                     functions::remove_all_text_from_json_file();
 
                     if !self.url_to_scan.is_empty() {
@@ -174,9 +181,11 @@ impl eframe::App for MyApp {
                                 self.url_search_uuid = String::new(); 
 
                                 self.url_search_uuid = functions::read_from_file("uuid.txt").expect("Couldn't retrieve UUID");
+                                self.search_response_success = 2;
                             }
                             Err(err) => {
                                 println!("URL failed to scan. Possible issue with the API key or validity of the URL.");
+                                self.search_response_success = 1;
                             }
                         }
                         //functions::scan_url(self.url_to_scan.to_string(), self.api_key.to_string());//.expect("Failed to scan url");
@@ -187,11 +196,20 @@ impl eframe::App for MyApp {
                     }
             });
 
-            if !self.url_search_uuid.is_empty() {
-                ui.add_space(10.0);
+            if self.search_response_success == 1 {
+                ui.colored_label(egui::Color32::RED, "URL failed to scan. Possible issue with the API key or validity of the URL.");
+            } else if self.search_response_success == 2 {
                 ui.colored_label(egui::Color32::GREEN, "URL search created, please wait roughly 15secs before gathering results.");
                 ui.colored_label(egui::Color32::LIGHT_YELLOW, format!("UUID = {}", self.url_search_uuid));
                 ui.colored_label(egui::Color32::LIGHT_YELLOW, format!("Current URL = {}", self.current_url_name));
+            }
+
+
+            if !self.url_search_uuid.is_empty() {
+                ui.add_space(10.0);
+                // ui.colored_label(egui::Color32::GREEN, "URL search created, please wait roughly 15secs before gathering results.");
+                // ui.colored_label(egui::Color32::LIGHT_YELLOW, format!("UUID = {}", self.url_search_uuid));
+                // ui.colored_label(egui::Color32::LIGHT_YELLOW, format!("Current URL = {}", self.current_url_name));
 
                 ui.add_space(10.0);
                 ui.vertical_centered(|ui| {
@@ -200,15 +218,15 @@ impl eframe::App for MyApp {
                         match functions::fetch_results() {
                             Ok(()) => {
                                 println!("Fetched results successfully");
+                                self.fetch_results_failed = false;
                                 //functions::fetch_results();
                             }
                             Err(err) => {
                                 println!("Failed to fetch results: {}", err);
                                 ui.label("Tried to access results too soon. Hang on.");
+                                self.fetch_results_failed = true;
                             }
                         }
-                        
-
 
                         self.results = functions::load_data();
 
@@ -218,11 +236,19 @@ impl eframe::App for MyApp {
                 });
                 
             }
+
+            if self.fetch_results_failed {
+                ui.add_space(5.0);
+                ui.vertical_centered(|ui| {
+                    ui.colored_label(egui::Color32::RED, "Results not yet ready. Try again shortly.");    
+                });
+                
+            }
             ui.add_space(20.0);
 
             if self.results.ips != Vec::<String>::default() {
                 ui.horizontal(|ui| {
-                    ui.colored_label(egui::Color32::GREEN, "IPs: ");
+                    ui.colored_label(egui::Color32::GREEN, "IPs:    ");
                     ui.vertical_centered(|ui| {
                         // ui.text_edit_multiline(&mut self.results.ips.join("\n "));
                         egui::ScrollArea::vertical().id_source("ips_scroll_area").show(ui, |ui| {
@@ -233,7 +259,7 @@ impl eframe::App for MyApp {
                 });
                 ui.add_space(5.0);
                 ui.horizontal(|ui| {
-                    ui.colored_label(egui::Color32::GREEN, "URLs: ");
+                    ui.colored_label(egui::Color32::GREEN, "URLs:   ");
                    // ui.add(egui::TextEdit::multiline(&mut self.results.urls.join("\n\n")).desired_rows(5);
                     ui.vertical_centered(|ui| {
                         egui::ScrollArea::vertical().id_source("urls_scroll_area").show(ui, |ui| {
